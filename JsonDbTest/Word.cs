@@ -1,4 +1,7 @@
-﻿public class Word
+﻿namespace JsonDbTest
 {
-    public string w { get; set; }
+    public class Word
+    {
+        public string w { get; set; }
+    }
 }
