@@ -1,5 +1,5 @@
 # JsonDbCore
-Playing around with JSON and LINQ in C# .NET Core 2.1 version. Using Newtonsoft.Json (NuGet). Very easy to implement or copy.
+Playing around with JSON and LINQ in C# .NET Core 2.1. Using Newtonsoft.Json (NuGet). Very easy to implement or copy.
 
 To run, use CLI in JsonDbTest folder: "dotnet run"
 
