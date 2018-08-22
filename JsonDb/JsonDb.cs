@@ -28,6 +28,10 @@ namespace JsonDb
                     _rows = JsonConvert.DeserializeObject<List<T>>(reader.ReadToEnd());
                 }
             }
+            else
+            {
+                _rows = new List<T>();
+            }
         }
 
         public void Save()
