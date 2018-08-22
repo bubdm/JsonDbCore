@@ -7,9 +7,9 @@ namespace JsonDb
 { 
     public class JsonDb<T> : IList<T>
     {
-        private static List<T> _rows;
+        private List<T> _rows;
 
-        private static string _path;
+        private string _path;
 
         public int Count => ((IList<T>)_rows).Count;
 
