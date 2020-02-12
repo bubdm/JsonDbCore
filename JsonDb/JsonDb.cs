@@ -77,6 +77,7 @@ namespace JsonDb
                 if (item.GetHashCode() == _rows[i].GetHashCode())
                 {
                     this.RemoveAt(i);
+                    return true;
                 }
             }
 
