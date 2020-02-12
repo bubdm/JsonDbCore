@@ -72,11 +72,12 @@ namespace JsonDb
 
         public bool Remove(T item)
         {
-            for(int i = 0;  i < _rows.Count; i++)
+            for (int i = 0;  i < _rows.Count; i++)
             {
                 if (item.GetHashCode() == _rows[i].GetHashCode())
                 {
                     this.RemoveAt(i);
+                    return true;
                 }
             }
 
