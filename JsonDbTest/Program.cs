@@ -6,24 +6,24 @@ namespace JsonDbTest
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             // Read table (6 MB of English words). Reads file if exists and serializes to objects.
             var words = new JsonDb<Word>($"Database/Words.json");
 
             // Search through 370 099 words. Find "*awkward*".
-            foreach (var awkward in words.Where(n => n.w.Contains("awkward")).OrderByDescending(n => n.w).Reverse())
-                Console.WriteLine($"Awkward: { awkward.w } ");
+            foreach (var awkward in words.Where(n => n.W.Contains("awkward")).OrderByDescending(n => n.W).Reverse())
+                Console.WriteLine($"Awkward: { awkward.W } ");
 
             // Find "lose*".
             var losers = from word in words
-                         where word.w.StartsWith("lose")
-                         orderby word.w ascending
+                         where word.W.StartsWith("lose")
+                         orderby word.W ascending
                          select word;
 
             // Show "lose*" search results.
             foreach (var lose in losers)
-                Console.WriteLine($"Lose: { lose.w } ");
+                Console.WriteLine($"Lose: { lose.W } ");
 
             // Create new items and write them to disk. Reads file if exists and serializes to objects.
             var items = new JsonDb<Item>($"Database/Items.json");

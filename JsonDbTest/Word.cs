@@ -2,6 +2,10 @@
 {
     public class Word
     {
-        public string w { get; set; }
+        public string W { get; set; }
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 }

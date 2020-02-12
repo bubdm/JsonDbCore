@@ -4,18 +4,28 @@ using System.Collections.Generic;
 using System.IO;
 
 namespace JsonDb
-{ 
+{
     public class JsonDb<T> : IList<T>
     {
-        private List<T> _rows;
+        private IList<T> _rows;
 
         private string _path;
+        
+        public string Path
+        {
+            get => _path;
+            set => _path = value;
+        }
 
-        public int Count => ((IList<T>)_rows).Count;
+        public int Count => _rows.Count;
 
-        public bool IsReadOnly => ((IList<T>)_rows).IsReadOnly;
+        public bool IsReadOnly => _rows.IsReadOnly;
 
-        public T this[int index] { get => ((IList<T>)_rows)[index]; set => ((IList<T>)_rows)[index] = value; }
+        public T this[int index]
+        {
+            get => _rows[index];
+            set => _rows[index] = value;
+        }
 
         public JsonDb(string path)
         {
@@ -25,7 +35,7 @@ namespace JsonDb
             {
                 using (var reader = new StreamReader(_path))
                 {
-                    _rows = JsonConvert.DeserializeObject<List<T>>(reader.ReadToEnd());
+                    _rows = JsonConvert.DeserializeObject<IList<T>>(reader.ReadToEnd());
                 }
             }
             else
@@ -44,22 +54,43 @@ namespace JsonDb
 
         public int IndexOf(T item)
         {
-            return ((IList<T>)_rows).IndexOf(item);
+            for (int i = 0; i < _rows.Count; i++)
+            {
+                if (item.GetHashCode() == _rows[i].GetHashCode())
+                {
+                    return i;
+                }
+            }
+
+            return -1;
         }
 
         public void Insert(int index, T item)
         {
-            ((IList<T>)_rows).Insert(index, item);
+            _rows.Insert(index, item);
+        }
+
+        public bool Remove(T item)
+        {
+            for(int i = 0;  i < _rows.Count; i++)
+            {
+                if (item.GetHashCode() == _rows[i].GetHashCode())
+                {
+                    this.RemoveAt(i);
+                }
+            }
+
+            return false;
         }
 
         public void RemoveAt(int index)
         {
-            ((IList<T>)_rows).RemoveAt(index);
+            _rows.RemoveAt(index);
         }
 
         public void Add(T item)
         {
-            ((IList<T>)_rows).Add(item);
+            _rows.Add(item);
         }
 
         public void Clear()
@@ -69,27 +100,79 @@ namespace JsonDb
 
         public bool Contains(T item)
         {
-            return ((IList<T>)_rows).Contains(item);
+            foreach (T row in _rows)
+            {
+                if (item.GetHashCode() == row.GetHashCode())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public bool ContainsAny(IList<T> items)
+        {
+            foreach (T item in items)
+            {
+                if (this.Contains(item))
+                { 
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         public void CopyTo(T[] array, int arrayIndex)
         {
-            ((IList<T>)_rows).CopyTo(array, arrayIndex);
-        }
-
-        public bool Remove(T item)
-        {
-            return ((IList<T>)_rows).Remove(item);
+            _rows.CopyTo(array, arrayIndex);
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            return ((IList<T>)_rows).GetEnumerator();
+            return _rows.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IList<T>)_rows).GetEnumerator();
+            return _rows.GetEnumerator();
+        }
+
+        public override string ToString()
+        {
+            return JsonConvert.SerializeObject(_rows);
+        }
+
+        // TODO Really stupid hash algorithm
+        public override int GetHashCode()
+        {
+            int sum = 0;
+
+            foreach (T item in _rows)
+            {
+                sum += item.GetHashCode();
+            }
+
+            return sum;
+        }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj is IList && ((IList<T>)obj).Count == _rows.Count)
+            {
+                for (int i = 0; i < ((IList<T>)obj).Count; i++)
+                {
+                    if (((IList<T>)obj)[i].GetHashCode() != _rows[i].GetHashCode())
+                    {
+                        return false;
+                    }
+                }
+                
+                return true;
+            }
+
+            return false;
         }
     }
 }
