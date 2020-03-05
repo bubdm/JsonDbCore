@@ -1,7 +1,7 @@
 # JsonDbCore
-Playing around with JSON and LINQ (NoSQL) in C# .NET Core 2.1. Using Newtonsoft.Json (NuGet). Easy to implement or copy. One custom method; Save().
+Experimenting with JSON and LINQ (NoSQL) in C# .NET Core 2.1. Using Newtonsoft.Json (NuGet). Easy to implement or copy. One custom method; Save().
 
-To run, use CLI in JsonDbTest folder: "dotnet run"
+To test, use CLI in JsonDbTest folder: "dotnet run"
 
 Tested and works on:
 - Windows (10, 1803)
