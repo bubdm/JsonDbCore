@@ -1,9 +1,9 @@
 # JsonDbCore
-JsonDb in JSON and LINQ (NoSQL) in C# .NET Core 2.1. Using Newtonsoft.Json (NuGet). Easy to implement or copy. One custom method; Save().
+JsonDb in JSON and LINQ (NoSQL) in C# .NET Core 3.1. Using Newtonsoft.Json (NuGet). Easy to implement or copy. One custom method; Save().
 
 To test, use CLI in JsonDbTest folder: "dotnet run"
 
 Tested and works on:
-- Windows (10, 1803)
-- Mac (High Sierra, 10.13.5)
+- Windows (10, 2004)
+- Mac (Big Sur, 11.0.1)
 - Linux (Ubuntu, 18.04)
