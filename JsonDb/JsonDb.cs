@@ -1,7 +1,7 @@
-﻿using Newtonsoft.Json;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.Json;
 
 namespace JsonDb
 {
@@ -35,7 +35,7 @@ namespace JsonDb
             {
                 using (var reader = new StreamReader(_path))
                 {
-                    _rows = JsonConvert.DeserializeObject<IList<T>>(reader.ReadToEnd());
+                    _rows = JsonSerializer.Deserialize<IList<T>>(reader.ReadToEnd());
                 }
             }
             else
@@ -48,7 +48,7 @@ namespace JsonDb
         {
             using (var writer = new StreamWriter(_path))
             {
-                writer.Write(JsonConvert.SerializeObject(_rows));
+                writer.Write(JsonSerializer.Serialize(_rows));
             }
         }
 
@@ -142,7 +142,7 @@ namespace JsonDb
 
         public override string ToString()
         {
-            return JsonConvert.SerializeObject(_rows);
+            return JsonSerializer.Serialize(_rows);
         }
 
         // TODO Really stupid hash algorithm
