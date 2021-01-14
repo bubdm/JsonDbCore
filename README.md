@@ -5,5 +5,5 @@ To test, use CLI in JsonDbTest folder: "dotnet run"
 
 Tested and works on:
 - Windows (10, 20H2)
-- Mac (Big Sur, 11.0.1)
+- Mac (Big Sur, 11.1)
 - Linux (Ubuntu, 20.10)
