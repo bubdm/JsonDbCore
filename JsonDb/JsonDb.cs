@@ -33,10 +33,8 @@ namespace JsonDb
 
             if (File.Exists(_path))
             {
-                using (var reader = new StreamReader(_path))
-                {
-                    _rows = JsonSerializer.Deserialize<IList<T>>(reader.ReadToEnd());
-                }
+                using var reader = new StreamReader(_path);
+                _rows = JsonSerializer.Deserialize<IList<T>>(reader.ReadToEnd());
             }
             else
             {
@@ -46,10 +44,8 @@ namespace JsonDb
 
         public void Save()
         {
-            using (var writer = new StreamWriter(_path))
-            {
-                writer.Write(JsonSerializer.Serialize(_rows));
-            }
+            using var writer = new StreamWriter(_path);
+            writer.Write(JsonSerializer.Serialize(_rows));
         }
 
         public int IndexOf(T item)
